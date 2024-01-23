@@ -1,7 +1,15 @@
 import Image from 'next/image'
 import styles from './page.module.css'
 
-export default function Home() {
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import { Amplify } from 'aws-amplify';
+import config from '@/amplifyconfiguration.json';
+import '@aws-amplify/ui-react/styles.css';
+import type { WithAuthenticatorProps } from '@aws-amplify/ui-react';
+
+Amplify.configure(config);
+
+function Home({ Component, pageProps, signOut, user }: WithAuthenticatorProps) {
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -84,3 +92,4 @@ export default function Home() {
     </main>
   )
 }
+export default withAuthenticator(Home);
